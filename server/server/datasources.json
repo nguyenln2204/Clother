@@ -2,5 +2,16 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "ClotherMongo": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "Clother",
+    "password": "",
+    "name": "ClotherMongo",
+    "user": "",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
   }
 }

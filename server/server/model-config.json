@@ -34,5 +34,29 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Category": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Product": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Account": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Review": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Order": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "OrderItem": {
+    "dataSource": "ClotherMongo",
+    "public": true
   }
 }
