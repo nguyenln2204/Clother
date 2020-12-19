@@ -14,25 +14,29 @@
     ]
   },
   "User": {
-    "dataSource": "db"
+    "dataSource": "ClotherMongo",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "ClotherMongo",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "ClotherMongo",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "ClotherMongo",
     "public": false,
     "options": {
       "strictObjectIDCoercion": true
     }
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "ClotherMongo",
     "public": false
   },
   "Category": {
