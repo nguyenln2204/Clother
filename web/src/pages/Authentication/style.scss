@@ -1,8 +1,84 @@
-.tabTitle {
-  color: black;
-  width: 200px;
+// form
+.formContainer {
+  width: 80%;
+  margin: auto !important;
+  transition: height 3s ease-out !important;
+
 }
 
-.tabTitleActive {
-  color: white
+.formItem {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  margin-bottom: 10px !important;
+  &:nth-child(1) {
+    padding-top: 20px !important;
+  }
 }
+
+.bottomFormItem {
+  margin-bottom: 10px !important;
+}
+
+.input {
+  background-color: transparent !important;
+  color: white !important;
+  height: 35px;
+  border-color: gray !important;
+}
+
+.bottomContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.ant-col {
+  &.ant-form-item-control {
+    width: 100% !important;
+  }
+  &.ant-form-item-label {
+    label {
+      color: white !important;
+    }
+  }
+}
+
+// .ant-col.ant-form-item-label {
+//   label {
+//     color: white !important;
+//   }
+// }
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #D76411 !important;
+  border-color: #D76411 !important;
+ 
+}
+
+.checkbox_item {
+  color: white !important
+}
+
+.ant-input-password .ant-input {
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.ant-input-password .ant-input-suffix .anticon {
+    color: white !important;
+}
+
+// button Submit
+.ant-btn-primary { 
+  background-color: #D76411 !important;
+  border-color: #D76411 !important;
+  font-weight: 600 !important;
+  height: 36px !important;
+  padding-inline: 25px !important;
+  &:hover {
+    background-color: #d3671a !important;
+    border-color: #db9869 !important;
+  }
+}
+
+

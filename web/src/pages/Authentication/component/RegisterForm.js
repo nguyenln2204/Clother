@@ -2,21 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { register } from "../../../redux/actions/accountAction";
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
+import "../style.scss";
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
@@ -35,8 +21,7 @@ export default function RegisterForm() {
 
   return (
     <Form
-      // {...layout}
-      style={{ width: "80%" }}
+      className="formContainer"
       name="basic"
       initialValues={{
         remember: true,
@@ -45,6 +30,7 @@ export default function RegisterForm() {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
+        className="formItem"
         label="Email"
         name="email"
         rules={[
@@ -54,10 +40,11 @@ export default function RegisterForm() {
           },
         ]}
       >
-        <Input style={classes.input} />
+        <Input className="input" />
       </Form.Item>
 
       <Form.Item
+        className="formItem"
         label="Password"
         name="password"
         rules={[
@@ -67,10 +54,11 @@ export default function RegisterForm() {
           },
         ]}
       >
-        <Input.Password style={classes.input} />
+        <Input.Password className="input" />
       </Form.Item>
 
       <Form.Item
+        className="formItem"
         name="confirm"
         label="Confirm Password"
         dependencies={["password"]}
@@ -92,33 +80,26 @@ export default function RegisterForm() {
           }),
         ]}
       >
-        <Input.Password style={classes.input} />
+        <Input.Password className="input" />
       </Form.Item>
 
-      <div style={classes.bottomContainer}>
-        <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
+      <div className="bottomContainer">
+        <Form.Item
+          className="bottomFormItem"
+          name="remember"
+          valuePropName="checked"
+        >
+          <Checkbox className="checkbox_item">Remember me</Checkbox>
         </Form.Item>
       </div>
 
-      <div style={classes.bottomContainer}>
+      <div className="bottomContainer">
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            REGISTER
           </Button>
         </Form.Item>
       </div>
     </Form>
   );
 }
-
-const classes = {
-  input: {
-    float: "right",
-    width: 250,
-  },
-  bottomContainer: {
-    display: "flex",
-    justifyContent: "center",
-  },
-};
