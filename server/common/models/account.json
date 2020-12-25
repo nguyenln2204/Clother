@@ -19,9 +19,9 @@
       "type": "string",
       "required": false
     },
-    "createAt": {
-      "type": "date",
-      "required": false
+    "role": {
+      "type": "string",
+      "default": "user"
     }
   },
   "validations": [],
@@ -57,12 +57,6 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "__create__orders"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY"
     }
   ],
   "methods": {}
