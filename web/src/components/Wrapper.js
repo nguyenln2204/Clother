@@ -6,6 +6,7 @@ import "./style.scss";
 import { getUserInfo } from "../redux/actions/accountAction";
 
 const { Header, Content, Footer } = Layout;
+const { SubMenu } = Menu;
 
 function Wrapper() {
   return function (WrappedComponent) {
@@ -32,19 +33,47 @@ function Wrapper() {
 
       return (
         <Layout>
-          <Header>
+          <Header style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}>
             <div className="logo" />
             <Menu
-              theme="dark"
+              // theme="dark"
+              style={{ backgroundColor: "transparent" }}
               mode="horizontal"
-              defaultSelectedKeys={["2"]}
+              defaultSelectedKeys={["1"]}
               onClick={(key) => {
                 console.log(key);
               }}
             >
-              <Menu.Item key="1">nav 1</Menu.Item>
-              <Menu.Item key="2">nav 2</Menu.Item>
-              <Menu.Item key="3">nav 3</Menu.Item>
+              {/* <SubMenu
+                className="navbarSubMenu"
+                title="ABOUT US"
+                key="sub1"
+              ></SubMenu>
+
+              <SubMenu className="navbarSubMenu" title="ALL ITEMS" key="sub2">
+                <Menu.Item key="4">T-SHIRT</Menu.Item>
+              </SubMenu>
+
+              <SubMenu
+                className="navbarSubMenu"
+                title="COLLECTIONS"
+                key="sub3"
+              ></SubMenu> */}
+              <Menu.Item className="navbarMenuItem" key="1">
+                ABOUT US
+              </Menu.Item>
+              <SubMenu className="navbarSubMenu" key="sub" title="ALL ITEMS">
+                <Menu.Item key="2">ALL ITEMS</Menu.Item>
+                <Menu.Item key="3">T-Shirt</Menu.Item>
+                <Menu.Item key="4">Sweater</Menu.Item>
+                <Menu.Item key="5">Hoodies</Menu.Item>
+                <Menu.Item key="6">Jacket</Menu.Item>
+                <Menu.Item key="7">Pants</Menu.Item>
+              </SubMenu>
+              <Menu.Item className="navbarMenuItem" key="8">
+                COLLECTIONS
+              </Menu.Item>
+
               <div style={styles.rightContainer}>
                 {account.isAuth ? (
                   <Button

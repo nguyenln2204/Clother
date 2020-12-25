@@ -16,3 +16,20 @@
   float: right;
   margin: 16px 0 16px 24px;
 }
+
+.navbarMenuItem, .navbarSubMenu {
+  font-size: 14px;
+  font-weight: 600;
+  &:hover {
+    color:blueviolet !important; 
+  }
+}
+
+.navbarMenuItem.ant-menu-item-selected {
+  color:blueviolet !important; 
+}
+
+.navbarSubMenu  {
+  font-size: 14px;
+  font-weight: 600;
+}
