@@ -1,29 +1,20 @@
 {
-  "name": "Product",
-  "plural": "products",
+  "name": "SuperProduct",
+  "plural": "superProducts",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "color": {
-      "type": "string",
-      "required": true
-    },
     "name": {
       "type": "string",
       "required": true
     },
-    "size": {
-      "type": "string",
-      "required": true
+    "description": {
+      "type": "string"
     },
-    "inStock": {
-      "type": "number",
-      "required": true
-    },
-    "image": {
+    "commonImages": {
       "type": [
         "string"
       ]
@@ -31,9 +22,9 @@
   },
   "validations": [],
   "relations": {
-    "superProduct": {
-      "type": "belongsTo",
-      "model": "SuperProduct",
+    "wishItems": {
+      "type": "hasMany",
+      "model": "WishItem",
       "foreignKey": ""
     }
   },

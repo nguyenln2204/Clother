@@ -9,6 +9,7 @@
     "mixins": [
       "loopback/common/mixins",
       "loopback/server/mixins",
+      "../node_modules/loopback-ds-timestamp-mixin",
       "../common/mixins",
       "./mixins"
     ]
@@ -39,10 +40,6 @@
     "dataSource": "ClotherMongo",
     "public": true
   },
-  "Product": {
-    "dataSource": "ClotherMongo",
-    "public": true
-  },
   "Account": {
     "dataSource": "ClotherMongo",
     "public": true
@@ -58,5 +55,29 @@
   "OrderItem": {
     "dataSource": "ClotherMongo",
     "public": true
+  },
+  "SuperProduct": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Product": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "CartItem": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Cart": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "WishItem": {
+    "dataSource": "ClotherMongo",
+    "public": true
+  },
+  "Report": {
+    "dataSource": "ClotherMongo",
+    "public": false
   }
 }
