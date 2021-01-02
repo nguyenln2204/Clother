@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { Layout, Menu, Button, Breadcrumb } from "antd";
 import "./style.scss";
 import {
@@ -10,7 +10,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { getUserInfo } from "../redux/actions/accountAction";
+// import { getUserInfo } from "../redux/actions/accountAction";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -19,13 +19,14 @@ function AdminWrapper(props) {
   return function (WrappedComponent) {
     function LayoutWrapper(props) {
       const account = useSelector((state) => state.account);
-      const dispatch = useDispatch();
+      // const dispatch = useDispatch();
       console.log("account", account);
       const [collapsed, setCollapsed] = useState(false);
 
       useEffect(() => {
         //dispatch(getUserInfo());
         if (account.role !== "admin") props.history.push("/");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
       useEffect(() => {

@@ -1,60 +1,115 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { Row, Col, Image, Radio, Button } from "antd";
 import "../style.scss";
 import ColorGroupButton from "./ColorGroupButton";
-import dummyProduct from "../dummyProduct";
 import DescriptionContainer from "./DescriptionContainer";
 import InputAmountGroup from "./InputAmountGroup";
 import dummyImage from "../../../static/images/t-shirt.png";
+import { sizeDict } from '../../../constants/constants'
+import { addItem } from '../../../redux/actions/cartAction'
 
-function ProductInfo() {
-  const [sizeValue, setSizeValue] = useState("S");
+function ProductInfo(props) {
+  const { product } = props;
+  const { productProperties } = product
+  const { image, name, price, description, color, extraPrice, id, superProductId, size } = product.productDetail;
+  const dispatch = useDispatch()
+  const [sizeOptions, setSizeOptions] = useState([]);
+  const [colorOptions, setColorOptions] = useState([]);
+  const [sizeValue, setSizeValue] = useState(size);
+  const [inStockValue, setInStockValue] = useState();
+  const [amountValue, setAmountValue] = useState(1);
+  
+  const generateSizeOptions = () => {
+    let array = [];
+    let tmp = productProperties[color]
+    tmp.forEach(item => {
+      array.push({
+        label: sizeDict[item.size],
+        value: item.size,
+        disabled: item.inStock > 0 ? false : true,
+        inStock: item.inStock,
+        supProductId: item.id
+      });
+    });
+    setSizeOptions(array);
+  };
+
+  const generateColorOptions = () => {
+    let array = [];
+    for (const [key, value] of Object.entries(productProperties)) {
+      array.push({
+        color: key,
+        productId: value[0].id,
+        disabled: false,
+      });
+    }
+    setColorOptions(array);
+  };
+
+  useEffect(() => {
+    generateSizeOptions();
+    generateColorOptions();
+    setSizeValue(size);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
+  
+
+  useEffect(() => {
+    if (sizeOptions !== []) {
+      setInStockValue(sizeOptions[0]?.inStock)
+    }
+  }, [sizeOptions])
 
   const handleSizeChange = (e) => {
+    let tmp = e.target.value;
     setSizeValue(e.target.value);
+    let obj = sizeOptions.find(item => item.value === tmp.toString())
+    setInStockValue(obj.inStock)
+    setAmountValue(1)
+    props.history.push(`/product/${obj.supProductId}`, { superProductId })
   };
 
   const handleInputChange = (value) => {
-    console.log("amount", value);
+    setAmountValue(value)
+  };
+
+  const handleAddToCartButton = () => {
+    dispatch(addItem({
+      quantity: amountValue,
+      supProductId: id,
+      price: price
+    }))
   };
 
   return (
     <div className="root">
-      {/* Product Detail */}
-      <Row>
+      <Row gutter={16}>
         {/* LEFT COMPONENT */}
-        <Col span={14} style={{ backgroundColor: "blue" }}>
+        <Col span={14} style={{  }}>
           <Row>
             <Col span={12}>
-              <Image
-                // width={100}
-                src="https://product.hstatic.net/200000075347/product/img_7046-scaled_46a6acadafa8431f962b07a3b30da793_master.jpg"
-              />
+              <Image src={image[0]} />
             </Col>
             <Col span={12}>
-              <Image
-                //width={100}
-                src="https://product.hstatic.net/200000075347/product/img_7044-scaled_267cf358b41648129d8cbd68007b4467_master.jpg"
-              />
+              <Image src={image[1]} />
             </Col>
           </Row>
           <Row>
-            <Image
-              // width={100}
-              src={dummyImage}
-            />
+            <Image src={dummyImage} />
           </Row>
         </Col>
 
         {/* RIGHT COMPONENT */}
-        <Col span={10} style={{ backgroundColor: "lightpink" }}>
-          <h1 style={{ fontWeight: 700, fontSize: 28 }}>{dummyProduct.name}</h1>
+        <Col span={10} style={{  }}>
+          <h1 style={{ fontWeight: 700, fontSize: 28 }}>{name}</h1>
           <p style={{ color: "#7E7E7E", fontSize: 12 }}>SKU: FOM0030</p>
-          <p style={{ fontSize: 38, fontWeight: 300 }}>
-            {dummyProduct.price}VND
+          <p style={{ fontSize: 38, fontWeight: 300, marginBottom: 20 }}>
+            {price + extraPrice}VND
           </p>
           <Radio.Group
-            options={dummyProduct.sizes}
+            options={sizeOptions}
             onChange={handleSizeChange}
             value={sizeValue}
             optionType="button"
@@ -62,19 +117,24 @@ function ProductInfo() {
             style={{ marginBottom: 12 }}
           />
           <br />
-          <ColorGroupButton colorOptions={dummyProduct.colors} />
+          <ColorGroupButton colorOptions={colorOptions} color={color}/>
           <br />
           <InputAmountGroup
-            inStock={dummyProduct.inStock}
+            inStock={inStockValue}
             handleInputChange={handleInputChange}
+            productId={id}
           />
 
           <div style={{ textAlign: "center", marginTop: 20, marginBottom: 30 }}>
-            <Button className="addToCartButton" type="primary">
+            <Button
+              className="addToCartButton"
+              type="primary"
+              onClick={handleAddToCartButton}
+            >
               ADD TO CART
             </Button>
           </div>
-          <DescriptionContainer description={dummyProduct.description} />
+          <DescriptionContainer description={description} />
           <br />
         </Col>
       </Row>
@@ -82,4 +142,4 @@ function ProductInfo() {
   );
 }
 
-export default ProductInfo;
+export default withRouter(ProductInfo);

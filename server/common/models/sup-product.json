@@ -1,39 +1,50 @@
 {
-  "name": "SuperProduct",
-  "plural": "superProducts",
+  "name": "SupProduct",
+  "plural": "supProducts",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "color": {
+      "type": "string",
+      "required": true
+    },
     "name": {
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "string"
+    "size": {
+      "type": "string",
+      "required": true
     },
-    "commonImages": {
+    "extraPrice": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "inStock": {
+      "type": "number",
+      "required": true
+    },
+    "image": {
       "type": [
         "string"
-      ]
-    },
-    "price": {
-      "type": "number",
+      ],
       "required": true
     }
   },
   "validations": [],
   "relations": {
-    "wishItems": {
-      "type": "hasMany",
-      "model": "WishItem",
+    "superProduct": {
+      "type": "belongsTo",
+      "model": "SuperProduct",
       "foreignKey": ""
     },
-    "supProducts": {
+    "cartItems": {
       "type": "hasMany",
-      "model": "SupProduct",
+      "model": "CartItem",
       "foreignKey": ""
     }
   },
@@ -45,15 +56,15 @@
       "permission": "DENY"
     },
     {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW"
-    },
-    {
       "accessType": "READ",
       "principalType": "ROLE",
       "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
       "permission": "ALLOW"
     }
   ],

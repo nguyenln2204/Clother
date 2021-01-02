@@ -14,15 +14,14 @@
   },
   "validations": [],
   "relations": {
-    "products": {
-      "type": "hasMany",
-      "model": "Product",
-      "foreignKey": "cartId",
-      "through": "CartItem"
-    },
     "account": {
       "type": "belongsTo",
       "model": "Account",
+      "foreignKey": ""
+    },
+    "cartItems": {
+      "type": "hasMany",
+      "model": "CartItem",
       "foreignKey": ""
     }
   },

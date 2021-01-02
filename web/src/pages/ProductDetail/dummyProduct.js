@@ -1,5 +1,3 @@
-const plainOptions = ["S", "M", "L"];
-
 const optionsWithDisabled = [
   { label: "S", value: "S" },
   { label: "M", value: "M" },
@@ -30,11 +28,17 @@ const colorOptions = [
 ];
 
 const dummyProduct = {
-  name: "SCORPION T-SHIRT/BLACK",
+  name: "SCORPION T-SHIRT",
+  sku: "FOM0030",
   price: 600000,
   sizes: optionsWithDisabled,
   colors: colorOptions,
   inStock: 10,
+  size: "M",
+  color: "black",
+  amount: 2,
+  image:
+    "https://product.hstatic.net/200000075347/product/img_7046-scaled_46a6acadafa8431f962b07a3b30da793_master.jpg",
   description: `<p> - Chất liệu 100% cotton 4 chiều nhập khẩu từ Hàn 
     <br/>- Họa tiết được in trực tiếp lên sản phẩm và có độ bền lâu 
     <br/>- Form áo Oversize <br/>- Thông tin thêm: 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function InputAmountGroup(props) {
   const classes = useStyles();
+  const { handleInputChange, inStock, productId } = props;
   const [value, setValue] = useState(1);
-  const { handleInputChange, inStock } = props;
   const handleMinusClick = () => {
     handleInputChange(value - 1);
     setValue(value - 1);
@@ -35,6 +35,17 @@ export default function InputAmountGroup(props) {
     handleInputChange(value + 1);
     setValue(value + 1);
   };
+
+  const handleChange = (e) => {
+    setValue(Math.min(e.target.value, inStock).toString().replace(/^0+/,''))
+    // handleInputChange(Math.min(e.target.value, inStock))
+  }
+
+  useEffect(() => {
+    setValue(1);
+  }, [inStock, productId]);
+
+
 
   return (
     <div className={classes.root}>
@@ -51,6 +62,11 @@ export default function InputAmountGroup(props) {
         type="number"
         variant="outlined"
         value={value}
+        onChange={handleChange}
+        onBlur={() => {
+          setValue(Math.max(1, Math.min(value, inStock)))
+          handleInputChange(Math.max(1, Math.min(value, inStock)))
+        }}
       />
       <IconButton
         aria-label="add"

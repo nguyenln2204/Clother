@@ -2,7 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import get from "lodash/get";
 import restConnector from "../../connectors/RestConnector";
 import { message } from "antd";
-import { goBack, push } from "react-router-redux";
+// import { goBack, push } from "react-router-redux";
 import {
   logIn,
   logInSuccess,
@@ -40,7 +40,7 @@ function* logInSaga({ payload }) {
     //   errorMessage = "Đăng nhập lỗi";
     // }
     yield put(logInFail(error));
-    message.warning("Login Fail!");
+    message.warning("Invalid email or password!");
   }
 }
 
@@ -78,13 +78,13 @@ function* registerSaga({ payload }) {
   } catch (error) {
     yield put(registerFail(error));
     let errorMessage = get(error, "response.data.error.message", "Đăng ký lỗi");
-    if (errorMessage.indexOf("User already exists") > -1) {
+    if (errorMessage.indexOf("Email already exists") > -1) {
       errorMessage = "Tài khoản đã được sử dụng";
+      message.warning("Email already exist!");
     }
     if (errorMessage.length > 40) {
       errorMessage = "Đăng ký lỗi";
     }
-    message.warning("Register Fail!");
   }
 }
 

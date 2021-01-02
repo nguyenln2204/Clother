@@ -1,3 +1,5 @@
 const baseURL = process.env.REACT_APP_BASE_URL;
 
-export { baseURL };
+const sizeDict = ["S", "M", "L", "XL"]
+
+export { baseURL, sizeDict };
