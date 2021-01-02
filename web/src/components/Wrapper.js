@@ -4,6 +4,8 @@ import { withRouter, Link } from "react-router-dom";
 import { Layout, Menu, Button } from "antd";
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import "./style.scss";
+import logo from '../static/images/LOGO_1.svg'
+import clotherImage from '../static/images/clother.png'
 // import { getUserInfo } from "../redux/actions/accountAction";
 import CartDrawer from "./CartDrawer";
 
@@ -14,12 +16,29 @@ function Wrapper() {
   return function (WrappedComponent) {
     function LayoutWrapper(props) {
       const account = useSelector(state => state.account);
-      const cart = useSelector(state => state.cart)
-      const { cartList } = cart;
+      // const cart = useSelector(state => state.cart)
+      // const { cartList } = cart;
+      const cartList = JSON.parse(localStorage.getItem('cart')) || []
+      console.log('local', cartList)
       const [visible, setVisible] = useState(false);
+      const [category, setCategory] = useState()
+
+      const fetchCategory = () => {
+        const backendURL = process.env.REACT_APP_BASE_URL;
+        let apiURL = "";
+
+        apiURL = backendURL + `/categories/`;
+        fetch(apiURL)
+          .then(response => response.json())
+          .then(response =>  {
+            setCategory(response)
+          })
+          .catch((err) => console.log(err));
+      }
       
       useEffect(() => {
         console.log("account", account);
+        fetchCategory()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
@@ -33,31 +52,59 @@ function Wrapper() {
 
       return (
         <Layout style={{ backgroundColor: "white" }}>
-          <Header style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}>
-            <div className="logo" />
+          <Header style={{ backgroundColor: "rgba(255, 255, 255, 0.3)", position: 'fixed', width: "100%" }}>
+            <div  className="logo" onClick={() => props.history.push('/')}
+              style={{
+                position: 'fixed', 
+                top: "10%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 99,
+                cursor: 'pointer'
+              }}>
+              <img src={logo} alt="logo" width={320} />
+            </div>
             <Menu
               // theme="dark"
               style={{ backgroundColor: "transparent" }}
               mode="horizontal"
-              defaultSelectedKeys={["1"]}
-              onClick={(key) => {
-                console.log(key);
+              defaultSelectedKeys={["0"]}
+              onClick={(e) => {
+                console.log(parseInt(e.key));
+                if (parseInt(e.key) === 2) props.history.push('/products/all-items')
               }}
             >
-              <Menu.Item className="navbarMenuItem" key="1" onClick={() => props.history.push('/')}>
+                
+              <Menu.Item className="navbarMenuItem" key="1">
                 ABOUT US
               </Menu.Item>
-              <SubMenu className="navbarSubMenu" key="sub" title="ALL ITEMS">
+              <SubMenu 
+                className="navbarSubMenu" 
+                key="sub" 
+                title="ALL ITEMS" 
+                onTitleClick={() => props.history.push('/products/all-items')}
+              >
                 <Menu.Item key="2">ALL ITEMS</Menu.Item>
-                <Menu.Item key="3">T-Shirt</Menu.Item>
+                {
+                  category?.map((item, index) => {
+                    return(
+                      <Menu.Item 
+                        key={index+3} 
+                        onClick={() => { props.history.push(`/products/${item.name.toLowerCase()}`)}}
+                      >{item.name}</Menu.Item>
+                    )
+                  })
+                }
+                {/* <Menu.Item key="3">T-Shirt</Menu.Item>
                 <Menu.Item key="4">Sweater</Menu.Item>
                 <Menu.Item key="5">Hoodies</Menu.Item>
                 <Menu.Item key="6">Jacket</Menu.Item>
-                <Menu.Item key="7">Pants</Menu.Item>
+                <Menu.Item key="7">Pants</Menu.Item> */}
               </SubMenu>
               <Menu.Item className="navbarMenuItem" key="8">
                 COLLECTIONS
               </Menu.Item>
+
 
               <div style={styles.rightContainer}>
                 {account.isAuth ? (
@@ -84,6 +131,7 @@ function Wrapper() {
               maxWidth: 1200,
               width: "85%",
               minWidth: 1000,
+              marginTop: 150,
             }}
           >
             <WrappedComponent
@@ -98,7 +146,10 @@ function Wrapper() {
             </Button>
             <CartDrawer visible={visible} onClose={onClose} />
           </Content>
-          <Footer style={{ textAlign: "center" }}>
+          <div style={{marginTop: 100}}>
+            <img src={clotherImage} alt='clother' style={{height: 'auto', maxWidth: '100%'}}/>
+          </div>
+          <Footer style={{ textAlign: "center", marginTop: 100 }}>
             Ant Design ©2018 Created by Ant UED
           </Footer>
         </Layout>

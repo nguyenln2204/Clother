@@ -9,13 +9,13 @@ function CartDrawer(props) {
   const { visible, onClose } = props;
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart);
-  const [cartList, setCartList] = useState(cart.cartList)
-  const [totalPrice, setTotalPrice] = useState(cart.totalPrice)
+  const [cartList, setCartList] = useState(JSON.parse(localStorage.getItem('cart')))
+  const [totalPrice, setTotalPrice] = useState(localStorage.getItem('totalPrice'))
 
-  useEffect(() => {
-    setCartList(cart.cartList)
-    setTotalPrice(cart.totalPrice)
-  }, [cart])
+  // useEffect(() => {
+  //   setCartList(cart.cartList)
+  //   setTotalPrice(cart.totalPrice)
+  // }, [cart])
 
   const changeAmount = (newAmount, index) => {
     let arr = cartList;
@@ -84,7 +84,7 @@ function CartDrawer(props) {
           <p style={{ marginBottom: "0px !important"}}>TOTAL</p>
           <h2 style={{ margin: "0px !important", color: "blueviolet"}}>{totalPrice}</h2>
         </div>
-        <Button type="primary" disabled={cartList.length < 1} onClick={handleCheckoutButton}>CHECKOUT</Button>
+        <Button type="primary" disabled={cartList?.length < 1 || !cartList} onClick={handleCheckoutButton}>CHECKOUT</Button>
       </div>
     </Drawer>
   );

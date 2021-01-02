@@ -42,7 +42,7 @@ const cartReducer = handleActions(
       })
       localStorage.removeItem('cart')
       localStorage.removeItem('totalPrice')
-      localStorage.setItem('cart', newList);
+      localStorage.setItem('cart', JSON.stringify(newList));
       localStorage.setItem('totalPrice', total);
       return {
         ...state,
