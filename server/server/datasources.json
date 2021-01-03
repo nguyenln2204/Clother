@@ -6,7 +6,7 @@
   "ClotherMongo": {
     "host": "localhost",
     "port": 27017,
-    "url": "",
+    "url": "${DB_URL}",
     "database": "Clother",
     "password": "",
     "name": "ClotherMongo",
