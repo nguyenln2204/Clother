@@ -33,8 +33,11 @@ export default function LoginForm() {
         rules={[
           {
             type: 'email',
-            required: true,
             message: "Invalid email!",
+          },
+          {
+            required: true,
+            message: 'Please input your email!'
           }
         ]}
       >
@@ -49,7 +52,7 @@ export default function LoginForm() {
         rules={[
           {
             required: true,
-            message: "Invalid password!",
+            message: "Please input password!",
           },
         ]}
       >

@@ -36,9 +36,12 @@ export default function RegisterForm() {
         rules={[
           {
             type: 'email',
-            required: true,
-            message: "Please input your username!",
+            message: "Invalid email!",
           },
+          {
+            required: true,
+            message: 'Please input your email!'
+          }
         ]}
       >
         <Input className="input" />
