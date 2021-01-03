@@ -15,11 +15,10 @@ const { SubMenu } = Menu;
 function Wrapper() {
   return function (WrappedComponent) {
     function LayoutWrapper(props) {
-      console.log(props.history.location.pathname.split('/').length)
       const account = useSelector(state => state.account);
-      // const cart = useSelector(state => state.cart)
-      // const { cartList } = cart;
-      const cartList = JSON.parse(localStorage.getItem('cart')) || []
+      const cart = useSelector(state => state.cart)
+      const { cartList } = cart;
+      // const cartList = JSON.parse(localStorage.getItem('cart')) || []
       const [visible, setVisible] = useState(false);
       const [category, setCategory] = useState()
 
@@ -37,7 +36,7 @@ function Wrapper() {
       }
       
       useEffect(() => {
-        
+  
         fetchCategory()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);

@@ -1,7 +1,14 @@
 import { handleActions } from "redux-actions";
 import { message } from "antd";
 
-import { addItem, addItemSuccess, addItemFail } from "../actions/cartAction";
+import { 
+  addItem, 
+  addItemSuccess, 
+  addItemFail,
+  getLocalCart,
+  getLocalCartSuccess,
+  getLocalCartFail,
+} from "../actions/cartAction";
 
 let defaultState = {
   isLoading: false,
@@ -20,6 +27,7 @@ const cartReducer = handleActions(
     },
     [addItemSuccess]: (state, { payload }) => {
       let newList = state.cartList;
+      console.log('newwww', newList)
       // if (payload.quantity !== 0) {
       let isExist = false;
       state.cartList.forEach((item) => {
@@ -59,6 +67,28 @@ const cartReducer = handleActions(
       };
     },
     [addItemFail]: (state, { payload: error }) => {
+      return {
+        ...state,
+        error,
+        isLoading: false,
+      };
+    },
+    [getLocalCart]: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+    [getLocalCartSuccess]: (state, {payload}) => {
+      console.log('payload', payload)
+      return {
+        ...state,
+        isLoading: false,
+        cartList: payload,
+        error: null
+      };
+    },
+    [getLocalCartFail]: (state, { payload: error }) => {
       return {
         ...state,
         error,

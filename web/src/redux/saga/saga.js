@@ -6,7 +6,7 @@ import {
   getUserInfoWatcher,
 } from "./accountSaga";
 
-import { addItemWatcher } from "./cartSaga";
+import { addItemWatcher,getLocalCartWatcher } from "./cartSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -17,5 +17,6 @@ export default function* rootSaga() {
 
     // cart
     addItemWatcher(),
+    getLocalCartWatcher(),
   ]);
 }

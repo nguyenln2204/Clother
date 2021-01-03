@@ -12,10 +12,11 @@ function CartDrawer(props) {
   const [cartList, setCartList] = useState(JSON.parse(localStorage.getItem('cart')))
   const [totalPrice, setTotalPrice] = useState(localStorage.getItem('totalPrice'))
 
-  // useEffect(() => {
-  //   setCartList(cart.cartList)
-  //   setTotalPrice(cart.totalPrice)
-  // }, [cart])
+  useEffect(() => {
+    console.log('cart drawer')
+    setCartList(JSON.parse(localStorage.getItem('cart')))
+    setTotalPrice(localStorage.getItem('totalPrice'))
+  }, [cart])
 
   const changeAmount = (newAmount, index) => {
     let arr = cartList;
@@ -30,10 +31,6 @@ function CartDrawer(props) {
       quantity: newAmount
     }))
   };
-
-  useEffect(() => {
-    console.log('total price', totalPrice)
-  }, [totalPrice])
 
   const handleCheckoutButton = () => {
     props.history.push('/checkout')
