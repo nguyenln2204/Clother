@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
-import { Layout, Menu, Button } from "antd";
-import { ShoppingCartOutlined } from '@ant-design/icons'
+import { Layout, Menu, Button, Input } from "antd";
+import { ShoppingCartOutlined, SearchOutlined } from '@ant-design/icons'
 import "./style.scss";
 import logo from '../static/images/LOGO_1.svg'
 import clotherImage from '../static/images/clother.png'
@@ -15,11 +15,11 @@ const { SubMenu } = Menu;
 function Wrapper() {
   return function (WrappedComponent) {
     function LayoutWrapper(props) {
+      console.log(props.history.location.pathname.split('/').length)
       const account = useSelector(state => state.account);
       // const cart = useSelector(state => state.cart)
       // const { cartList } = cart;
       const cartList = JSON.parse(localStorage.getItem('cart')) || []
-      console.log('local', cartList)
       const [visible, setVisible] = useState(false);
       const [category, setCategory] = useState()
 
@@ -37,7 +37,7 @@ function Wrapper() {
       }
       
       useEffect(() => {
-        console.log("account", account);
+        
         fetchCategory()
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
@@ -52,7 +52,7 @@ function Wrapper() {
 
       return (
         <Layout style={{ backgroundColor: "white" }}>
-          <Header style={{ backgroundColor: "rgba(255, 255, 255, 0.3)", position: 'fixed', width: "100%" }}>
+          <Header style={{ zIndex: 99, backgroundColor: "rgba(255, 255, 255, 0.3)", position: 'fixed', width: "100%" }}>
             <div  className="logo" onClick={() => props.history.push('/')}
               style={{
                 position: 'fixed', 
@@ -132,8 +132,18 @@ function Wrapper() {
               width: "85%",
               minWidth: 1000,
               marginTop: 150,
+              position: 'relative'
             }}
           >
+            {
+              props.history.location.pathname.split('/').length>2 ?
+              <div onKeyPress={(e) => { if (e.which===13) props.history.push('/products/all-items')}} style={{position: 'absolute', right: 0, width: 350, borderBottom: "1px solid black", display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Input bordered={false} placeholder="Search an item..."/>
+                <SearchOutlined style={{fontSize: 20}}/>
+              </div>
+              : null
+            }
+           
             <WrappedComponent
               {...props}
             />
@@ -144,6 +154,7 @@ function Wrapper() {
             >
               <ShoppingCartOutlined /> {cartList.length}
             </Button>
+            
             <CartDrawer visible={visible} onClose={onClose} />
           </Content>
           <div style={{marginTop: 100}}>

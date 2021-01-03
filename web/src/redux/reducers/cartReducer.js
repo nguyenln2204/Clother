@@ -1,4 +1,5 @@
 import { handleActions } from "redux-actions";
+import { message } from "antd";
 
 import { addItem, addItemSuccess, addItemFail } from "../actions/cartAction";
 
@@ -17,18 +18,23 @@ const cartReducer = handleActions(
         isLoading: true,
       };
     },
-    [addItemSuccess]: (state, { payload }) => 
-    {
-      let newList = state.cartList
+    [addItemSuccess]: (state, { payload }) => {
+      let newList = state.cartList;
       // if (payload.quantity !== 0) {
-        let isExist = false;
-        state.cartList.forEach(item => {
-          if (item.supProductId === payload.supProductId && item.productDetail.size === payload.productDetail.size) {
-            isExist = true;
-            item.quantity = payload.quantity
-          }
-        });
-        if (!isExist) newList.push(payload)
+      let isExist = false;
+      state.cartList.forEach((item) => {
+        if (
+          item.supProductId === payload.supProductId &&
+          item.productDetail.size === payload.productDetail.size
+        ) {
+          isExist = true;
+          item.quantity = payload.quantity;
+        }
+      });
+      if (!isExist) {
+        newList.push(payload);
+        message.success("Add to Cart Success");
+      }
       // }
       // else {
       //   let index = newList.indexOf(payload)
@@ -36,20 +42,20 @@ const cartReducer = handleActions(
       //   newList.splice(index, 1)
       // }
       let total = 0;
-      console.log('new', newList)
-      newList.forEach(item => {
-        total += item.quantity * item.price
-      })
-      localStorage.removeItem('cart')
-      localStorage.removeItem('totalPrice')
-      localStorage.setItem('cart', JSON.stringify(newList));
-      localStorage.setItem('totalPrice', total);
+      console.log("new", newList);
+      newList.forEach((item) => {
+        total += item.quantity * item.price;
+      });
+      localStorage.removeItem("cart");
+      localStorage.removeItem("totalPrice");
+      localStorage.setItem("cart", JSON.stringify(newList));
+      localStorage.setItem("totalPrice", total);
       return {
         ...state,
         error: null,
         cartList: newList,
         isLoading: false,
-        totalPrice: total
+        totalPrice: total,
       };
     },
     [addItemFail]: (state, { payload: error }) => {

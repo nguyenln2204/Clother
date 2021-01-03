@@ -62,7 +62,7 @@ function CartDrawer(props) {
     >
       {cartList?.map((item, index) => {
         return (
-          <>
+          <div key={index}>
             {
               index !== 0 ? <Divider /> : null
             }  
@@ -75,7 +75,7 @@ function CartDrawer(props) {
               price={item.price}
               removeItem={removeItem}
             />
-          </>
+          </div>
         );
       })}
       <Divider />

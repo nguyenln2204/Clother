@@ -95,7 +95,8 @@ function ProductList(props) {
   }, [categoryId]);
 
   useEffect(() => {
-    fetchCategory(keyword)
+    if (keyword === 'all-items') setCategoryId(-1)
+    else fetchCategory(keyword)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
@@ -116,7 +117,7 @@ function ProductList(props) {
                 tmpList.push(null)
               }
             } 
-            return (<ProductRow list={tmpList} />)
+            return (<ProductRow key={index} list={tmpList} />)
           })
         }
       </div>
