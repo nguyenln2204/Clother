@@ -34,6 +34,7 @@ function* getLocalCartSaga() {
   try {
     let cart = JSON.parse(localStorage.getItem('cart'))
     console.log('local cart', cart)
+    if (cart === null) cart = []
     yield put(getLocalCartSuccess(cart))
   }
   catch (error) {

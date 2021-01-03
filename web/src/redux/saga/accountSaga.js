@@ -40,7 +40,7 @@ function* logInSaga({ payload }) {
     //   errorMessage = "Đăng nhập lỗi";
     // }
     yield put(logInFail(error));
-    message.warning("Invalid email or password!");
+    message.warning("Login Failed. Invalid email or password!");
   }
 }
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { InputNumber, Button } from "antd";
+import { withRouter } from 'react-router-dom'
 import { DeleteOutlined } from '@ant-design/icons'
 import Checkbox from "@material-ui/core/Checkbox";
 import { sizeDict } from '../constants/constants'
 
-export default function CartItem(props) {
+function CartItem(props) {
   const { product, price, changeAmount, handleCheckboxCheckout, index, removeItem } = props;
   const {
     image,
@@ -14,6 +15,7 @@ export default function CartItem(props) {
     color,
     checkedCheckout,
     inStock,
+    id
   } = product;
   const [quantity, setQuantity] = useState(props.quantity)
 
@@ -37,8 +39,8 @@ export default function CartItem(props) {
           />
            
           <img src={image[0]} alt="thumbnail" height={100} />
-          <div>
-            <p>{name}</p>
+          <div style={{cursor: 'pointer'}} onClick={() => props.history.push(`/product/${id}`)}>
+            <p style={{fontWeight: 600}}>{name}</p>
             <p>{color.toUpperCase()}</p>
             <p>
               {sizeDict[size]}/{sku}
@@ -69,3 +71,5 @@ export default function CartItem(props) {
     </>
   );
 }
+
+export default withRouter(CartItem)

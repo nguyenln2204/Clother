@@ -11,18 +11,31 @@ const styles = {
 }
 
 function ProductContainer(props) {
-  const cart = JSON.parse(localStorage.getItem('cart'));
-  const total = localStorage.getItem('totalPrice')
-  const [cartList, setCartList] = useState(null)
-  const [totalPrice, setTotalPrice] = useState()
-  const shippingCost = 40000
-  const discountCost = 0
+  const { 
+    cartList, 
+    totalPrice, 
+    shippingCost,
+    handleChangeDiscountCost,
+    discountCost
+  } = props
+ 
+  const [discountCode, setDiscountCode] = useState("")
+  const [alert, setAlert] = useState("")
 
-  useEffect(() => {
-    setCartList(cart)
-    setTotalPrice(total)
-    console.log(total, cart)
-  }, [])
+  const handleDiscountCodeChange = (e) => {
+    setDiscountCode(e.target.value)
+  }
+
+  const _handleApplyCode = (discountCode) => {
+    if (discountCode === "DISCOUNT50") {
+      handleChangeDiscountCost(totalPrice*0.5, discountCode)
+      setAlert("")
+    }
+    else {
+      handleChangeDiscountCost(totalPrice*0, discountCode)
+      setAlert("Invalid Code!")
+    }
+  }
 
   return (
     <div>
@@ -35,9 +48,10 @@ function ProductContainer(props) {
           )
         })
       }
-      <div style={{ display: 'flex', justifyContent: 'space-between', paddingInline: 100}}>
-        <Input placeholder='Discount Code' style={{ width: '70%' }}/>
-        <Button type='primary'>APPLY</Button>
+      <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', paddingInline: 100}}>
+        <Input placeholder='Discount Code' style={{ width: '70%' }} onChange={handleDiscountCodeChange}/>
+        <Button onClick={() => _handleApplyCode(discountCode)} type='primary'>APPLY</Button>
+        <p style={{color: "#F44336", position: 'absolute', right: 0, alignSelf: 'flex-end' }}>{alert}</p>
       </div>
       <Divider />
 
@@ -58,7 +72,7 @@ function ProductContainer(props) {
 
       <div style={styles.summaryLine}>
         <p style={{fontWeight: 'bold', color: 'blueviolet'}}>Total Cost</p>
-        <p style={{fontWeight: 'bold', fontSize: 24}}>{parseInt(shippingCost)+parseInt(totalPrice)+parseInt(discountCost)} VND</p>
+        <p style={{fontWeight: 'bold', fontSize: 24}}>{parseInt(shippingCost)+parseInt(totalPrice)-parseInt(discountCost)} VND</p>
       </div>
     </div>
   )

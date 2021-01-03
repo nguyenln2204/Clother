@@ -21,8 +21,8 @@
     },
     "product": {
       "type": "belongsTo",
-      "model": "Product",
-      "foreignKey": "productId"
+      "model": "SupProduct",
+      "foreignKey": "supProductId"
     }
   },
   "acls": [

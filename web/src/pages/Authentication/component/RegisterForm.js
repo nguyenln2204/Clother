@@ -35,6 +35,7 @@ export default function RegisterForm() {
         name="email"
         rules={[
           {
+            type: 'email',
             required: true,
             message: "Please input your username!",
           },

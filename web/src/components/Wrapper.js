@@ -110,7 +110,7 @@ function Wrapper() {
                   <Button
                     type="primary"
                     onClick={() => {
-                      localStorage.clear();
+                      localStorage.removeItem('access_token');
                       props.history.go(0);
                     }}
                   >
@@ -151,7 +151,7 @@ function Wrapper() {
               type="primary"
               onClick={showDrawer}
             >
-              <ShoppingCartOutlined /> {cartList.length}
+              <ShoppingCartOutlined /> {!cartList ? 0 : cartList.length}
             </Button>
             
             <CartDrawer visible={visible} onClose={onClose} />

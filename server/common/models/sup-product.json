@@ -46,6 +46,11 @@
       "type": "hasMany",
       "model": "CartItem",
       "foreignKey": ""
+    },
+    "orderItems": {
+      "type": "hasMany",
+      "model": "OrderItem",
+      "foreignKey": ""
     }
   },
   "acls": [

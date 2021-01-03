@@ -62,9 +62,7 @@ const useStyles = makeStyles((theme) => ({
 function Authentication(props) {
   const classes = useStyles();
   const account = useSelector(state => state.account);
-  const cart = useEffect(state => state.cart)
   const [keyTab, setKeyTab] = useState(0);
-  console.log('cart list', cart)
 
   useEffect(() => {
     if (account.isAuth) {

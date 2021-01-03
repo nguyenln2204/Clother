@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "./saga/saga.js";
 import accountReducer from "./reducers/accountReducer";
 import cartReducer from "./reducers/cartReducer";
+import orderReducer from './reducers/orderReducer'
 import { routerReducer } from "react-router-redux";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -13,6 +14,7 @@ const store = createStore(
   combineReducers({
     account: accountReducer,
     cart: cartReducer,
+    order: orderReducer,
     routing: routerReducer,
   }),
   composeEnhancers(applyMiddleware(sagaMiddleware))

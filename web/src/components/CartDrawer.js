@@ -79,7 +79,7 @@ function CartDrawer(props) {
       <div style={{ display: "flex", flexDirection: 'column'}}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
           <p style={{ marginBottom: "0px !important"}}>TOTAL</p>
-          <h2 style={{ margin: "0px !important", color: "blueviolet"}}>{totalPrice}</h2>
+          <h2 style={{ margin: "0px !important", color: "blueviolet"}}>{totalPrice} VND</h2>
         </div>
         <Button type="primary" disabled={cartList?.length < 1 || !cartList} onClick={handleCheckoutButton}>CHECKOUT</Button>
       </div>

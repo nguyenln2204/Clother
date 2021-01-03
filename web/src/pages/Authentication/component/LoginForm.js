@@ -32,9 +32,10 @@ export default function LoginForm() {
         name="email"
         rules={[
           {
+            type: 'email',
             required: true,
-            message: "Please input your username!",
-          },
+            message: "Invalid email!",
+          }
         ]}
       >
         <Input className="input" />
@@ -48,7 +49,7 @@ export default function LoginForm() {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "Invalid password!",
           },
         ]}
       >

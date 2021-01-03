@@ -80,7 +80,6 @@ const cartReducer = handleActions(
       };
     },
     [getLocalCartSuccess]: (state, {payload}) => {
-      console.log('payload', payload)
       return {
         ...state,
         isLoading: false,

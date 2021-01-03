@@ -7,6 +7,7 @@ import {
 } from "./accountSaga";
 
 import { addItemWatcher,getLocalCartWatcher } from "./cartSaga";
+import { createOrderWatcher } from './orderSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +19,8 @@ export default function* rootSaga() {
     // cart
     addItemWatcher(),
     getLocalCartWatcher(),
+
+    // order
+    createOrderWatcher(),
   ]);
 }
