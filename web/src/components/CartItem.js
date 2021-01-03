@@ -6,7 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { sizeDict } from '../constants/constants'
 
 function CartItem(props) {
-  const { product, price, changeAmount, handleCheckboxCheckout, index, removeItem } = props;
+  const { product, price, changeAmount, handleCheckboxCheckout, index, removeItem,isChecked } = props;
   const {
     image,
     name,
@@ -18,7 +18,7 @@ function CartItem(props) {
     id
   } = product;
   const [quantity, setQuantity] = useState(props.quantity)
-
+  const [checkState, setCheckState] = useState(true)
   useEffect(() => {
     setQuantity(props.quantity)
   }, [props.quantity])
@@ -31,13 +31,18 @@ function CartItem(props) {
           {/* <Button style={{ position: 'absolute', right: 0, bottom: 4}} type="primary" onClick={() => removeItem(index)}>
             <DeleteOutlined />
           </Button> */}
-          <Checkbox
-            checked={true}
-            onChange={handleCheckboxCheckout}
-            inputProps={{ "aria-label": "primary checkbox" }}
-            style={{ selfAlign: 'flex-start'}}
-          />
-           
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+            <Checkbox
+              checked={isChecked ? isChecked : checkState}
+              onChange={() => setCheckState(!checkState)}
+              inputProps={{ "aria-label": "primary checkbox" }}
+              style={{ selfAlign: 'flex-start'}}
+            />
+            <Button size="small">
+              <DeleteOutlined />
+            </Button>
+          </div>
+          
           <img src={image[0]} alt="thumbnail" height={100} />
           <div style={{cursor: 'pointer'}} onClick={() => props.history.push(`/product/${id}`)}>
             <p style={{fontWeight: 600}}>{name}</p>

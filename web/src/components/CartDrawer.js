@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { Divider, Drawer, Button } from "antd";
 import CartItem from "./CartItem";
 import { addItem } from '../redux/actions/cartAction'
+import Checkbox from "@material-ui/core/Checkbox";
 
 function CartDrawer(props) {
   const { visible, onClose } = props;
@@ -11,6 +12,7 @@ function CartDrawer(props) {
   const cart = useSelector((state) => state.cart);
   const [cartList, setCartList] = useState(JSON.parse(localStorage.getItem('cart')))
   const [totalPrice, setTotalPrice] = useState(localStorage.getItem('totalPrice'))
+  const [allCheckbox, setAllCheckbox] = useState(true)
 
   useEffect(() => {
     console.log('cart drawer')
@@ -57,6 +59,7 @@ function CartDrawer(props) {
       visible={visible}
       width={450}
     >
+      <Button style={{position: 'absolute', right:10, top: 10}}>Delete All Items</Button>
       {cartList?.map((item, index) => {
         return (
           <div key={index}>
@@ -71,6 +74,7 @@ function CartDrawer(props) {
               index={index}
               price={item.price}
               removeItem={removeItem}
+              isChecked={allCheckbox}
             />
           </div>
         );
@@ -82,6 +86,15 @@ function CartDrawer(props) {
           <h2 style={{ margin: "0px !important", color: "blueviolet"}}>{totalPrice} VND</h2>
         </div>
         <Button type="primary" disabled={cartList?.length < 1 || !cartList} onClick={handleCheckoutButton}>CHECKOUT</Button>
+      </div>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-end'}}>
+        <Checkbox
+          checked={allCheckbox}
+          inputProps={{ "aria-label": "primary checkbox" }}
+          style={{ selfAlign: 'flex-start'}}
+          onChange={() => setAllCheckbox(!allCheckbox)}
+        />
+        <p>Checkout All</p>
       </div>
     </Drawer>
   );

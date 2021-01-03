@@ -86,7 +86,7 @@ function Authentication(props) {
       ) : ( */}
       <div className={classes.root}>
         <div className={classes.leftContainer}>
-          <img src={logoImage} width={500} alt="logo" />
+          <img style={{cursor: 'pointer'}} src={logoImage} width={500} alt="logo" onClick={() => props.history.push('/')}/>
           <p style={{ color: "white", fontSize: 16 }}>
             "People will stare. Make it worth their while."
           </p>
